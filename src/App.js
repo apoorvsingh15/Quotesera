@@ -1,6 +1,6 @@
-import React from 'react';
-import AppRouter from './components/common/Routes';
-
+import React from "react";
+import AppRouter from "./components/common/Routes";
+import "./App.css";
 const App = () => (
   <div>
     <AppRouter />
