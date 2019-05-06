@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 const AddText = ({
   history: {
-    location: { state },
+    location: {
+      state: { height, width }
+    },
     push
   }
 }) => {
@@ -19,8 +21,8 @@ const AddText = ({
 
   const navigateToQuotes = () => {
     push("quotes", {
-      height: state.height,
-      width: state.width,
+      height: height,
+      width: width,
       mainQuote: largeText,
       subQuote: smallText
     });

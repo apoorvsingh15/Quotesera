@@ -1,21 +1,36 @@
-import React from "react";
+import React, { Fragment, useRef } from "react";
+import html2canvas from "html2canvas";
+const Quotes = ({
+  location: {
+    state: { height, width, mainQuote, subQuote }
+  }
+}) => {
+  const inputEl = useRef(null);
 
-const Quotes = props => {
-  console.log(props, "props");
+  const onButtonClick = () => {
+    // `current` points to the mounted text input element
+    html2canvas(inputEl.current).then(function(canvas) {
+      return document.body.appendChild(canvas);
+    });
+  };
 
   return (
-    <div
-      style={{
-        height: props.location.state.height,
-        width: props.location.state.width,
-        textAlign: "center",
-        color: "red",
-        backgroundColor: "blue"
-      }}
-    >
-      <h1>{props.location.state.mainQuote}</h1>
-      <h6>{props.location.state.subQuote}</h6>
-    </div>
+    <Fragment>
+      <div
+        ref={inputEl}
+        style={{
+          height: height ? height : 1080,
+          width: width ? width : 1080,
+          textAlign: "center",
+          color: "red",
+          backgroundColor: "blue"
+        }}
+      >
+        <h1>{mainQuote}</h1>
+        <h6>{subQuote}</h6>
+        <button onClick={onButtonClick}>dfdf</button>
+      </div>
+    </Fragment>
   );
 };
 
