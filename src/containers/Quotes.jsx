@@ -5,9 +5,16 @@ const Quotes = ({ location: { state = {} } }) => {
 
   const onButtonClick = () => {
     // `current` points to the mounted text input element
-    html2canvas(inputEl.current).then(function(canvas) {
-      return document.body.appendChild(canvas);
-    });
+    html2canvas(inputEl.current, { scale: window.devicePixelRatio * 1.2 }).then(
+      function(canvas) {
+        document.body.appendChild(canvas).toDataURL("image/png");
+        return document.write(
+          '<img src="' +
+            document.body.appendChild(canvas).toDataURL("image/png") +
+            '"/>'
+        );
+      }
+    );
   };
 
   return (
@@ -15,17 +22,20 @@ const Quotes = ({ location: { state = {} } }) => {
       <div
         ref={inputEl}
         style={{
+          margin: "0 auto",
           height: state.height ? state.height : 1080,
           width: state.width ? state.width : 1080,
           textAlign: "center",
           color: "red",
-          backgroundImage: `url(${require("../assets/home-banner-bg.png")})`
+          backgroundImage: `url(${require("../assets/test.jpg")})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat"
         }}
       >
         <h1>{state.mainQuote}</h1>
         <h6>{state.subQuote}</h6>
-        <button onClick={onButtonClick}>Download</button>
       </div>
+      <button onClick={onButtonClick}>Download</button>
     </Fragment>
   );
 };
