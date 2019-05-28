@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 const AddText = ({
   history: {
-    location: {
-      state: { height, width }
-    },
+    location: { state = {} },
     push
   }
 }) => {
   const [largeText, setLargeText] = useState("");
   const [smallText, setSmallText] = useState("");
+  console.log(state, "<======", push);
 
   const onHandleLargeTextChange = ({ target: { value } }) => {
     setLargeText(value);
@@ -21,8 +20,8 @@ const AddText = ({
 
   const navigateToQuotes = () => {
     push("quotes", {
-      height: height,
-      width: width,
+      height: state.height,
+      width: state.width,
       mainQuote: largeText,
       subQuote: smallText
     });

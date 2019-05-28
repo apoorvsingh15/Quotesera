@@ -1,10 +1,6 @@
 import React, { Fragment, useRef } from "react";
 import html2canvas from "html2canvas";
-const Quotes = ({
-  location: {
-    state: { height, width, mainQuote, subQuote }
-  }
-}) => {
+const Quotes = ({ location: { state = {} } }) => {
   const inputEl = useRef(null);
 
   const onButtonClick = () => {
@@ -19,16 +15,16 @@ const Quotes = ({
       <div
         ref={inputEl}
         style={{
-          height: height ? height : 1080,
-          width: width ? width : 1080,
+          height: state.height ? state.height : 1080,
+          width: state.width ? state.width : 1080,
           textAlign: "center",
           color: "red",
-          backgroundColor: "blue"
+          backgroundImage: `url(${require("../assets/home-banner-bg.png")})`
         }}
       >
-        <h1>{mainQuote}</h1>
-        <h6>{subQuote}</h6>
-        <button onClick={onButtonClick}>dfdf</button>
+        <h1>{state.mainQuote}</h1>
+        <h6>{state.subQuote}</h6>
+        <button onClick={onButtonClick}>Download</button>
       </div>
     </Fragment>
   );
