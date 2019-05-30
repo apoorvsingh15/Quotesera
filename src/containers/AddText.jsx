@@ -8,7 +8,6 @@ const AddText = ({
 }) => {
   const [largeText, setLargeText] = useState("");
   const [smallText, setSmallText] = useState("");
-  console.log(state, "<======", push);
 
   const onHandleLargeTextChange = ({ target: { value } }) => {
     setLargeText(value);

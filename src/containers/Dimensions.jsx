@@ -6,7 +6,7 @@ const Dimensions = props => {
 
   const getDimensions = platform => {
     return platform === "instagram-square"
-      ? setDimensions({ width: 1080, height: 1080 })
+      ? setDimensions({ width: 700, height: 700 })
       : setDimensions({ width: 750, height: 1334 });
   };
 
