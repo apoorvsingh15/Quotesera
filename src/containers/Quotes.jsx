@@ -1,11 +1,32 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef, useState, useEffect } from "react";
 import html2canvas from "html2canvas";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
+import axios from "axios";
+
+const API_URL = "https://api.pexels.com/v1/";
 
 const Quotes = ({ location: { state = {} } }) => {
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `${API_URL}curated?per_page=15&page=${Math.floor(Math.random() * 1000) +
+  //         1}`,
+  //       {
+  //         headers: {
+  //           Authorization:
+  //             "563492ad6f91700001000001afc9aaa8043b4825be7232b032c80a6d"
+  //         }
+  //       }
+  //     )
+  //     .then(response => setApiResponse(response), setGotResponse(true))
+  //     .catch(error => console.log(error, "<===="));
+  // }, []);
   const inputEl = useRef(null);
-  const [textInputValue, setTextInputValue] = useState(20);
+  const [textInputValue, setTextInputValue] = useState(10);
+  const [largeTextInputValue, setLargeTextInputValue] = useState(20);
+  // const [apiResponse, setApiResponse] = useState({});
+  // const [gotResponse, setGotResponse] = useState(false);
   console.log(textInputValue);
 
   const onButtonClick = () => {
@@ -21,7 +42,6 @@ const Quotes = ({ location: { state = {} } }) => {
       );
     });
   };
-
   return (
     <Fragment>
       <div
@@ -37,13 +57,19 @@ const Quotes = ({ location: { state = {} } }) => {
           backgroundRepeat: "no-repeat"
         }}
       >
-        <h1 style={{ fontSize: textInputValue }}>{state.mainQuote}</h1>
-        <h6 style={{ fontSize: textInputValue }}>{state.subQuote}</h6>
+        <p style={{ fontSize: largeTextInputValue }}>{state.mainQuote}</p>
+        <p style={{ fontSize: textInputValue }}>{state.subQuote}</p>
       </div>
       <div style={{ width: "200px", marginLeft: 100 }}>
         <InputRange
           maxValue={50}
           minValue={20}
+          value={largeTextInputValue}
+          onChange={value => setLargeTextInputValue(value)}
+        />
+        <InputRange
+          maxValue={20}
+          minValue={10}
           value={textInputValue}
           onChange={value => setTextInputValue(value)}
         />
