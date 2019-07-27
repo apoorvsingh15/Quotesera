@@ -8,3 +8,10 @@ html {
   position: absolute;
   z-index: -1;
 }
+
+.banner-bottom {
+  width: 100%;
+  bottom: 0;
+
+  z-index: -1;
+}

@@ -3,7 +3,7 @@ import html2canvas from "html2canvas";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 import axios from "axios";
-
+import { Container, Row, Col } from "react-bootstrap";
 const API_URL = "https://api.pexels.com/v1/";
 
 const Quotes = ({ location: { state = {} } }) => {
@@ -44,37 +44,67 @@ const Quotes = ({ location: { state = {} } }) => {
   };
   return (
     <Fragment>
-      <div
-        ref={inputEl}
-        style={{
-          textAlign: "center",
+      <Container>
+        <Row>
+          <Col>
+            <div
+              ref={inputEl}
+              style={{
+                textAlign: "center",
 
-          height: state.height ? state.height : 1080,
-          width: state.width ? state.width : 1080,
-          color: "red",
-          backgroundImage: `url(${require("../assets/test.jpg")})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "no-repeat"
-        }}
-      >
-        <p style={{ fontSize: largeTextInputValue }}>{state.mainQuote}</p>
-        <p style={{ fontSize: textInputValue }}>{state.subQuote}</p>
-      </div>
-      <div style={{ width: "200px", marginLeft: 100 }}>
-        <InputRange
-          maxValue={50}
-          minValue={20}
-          value={largeTextInputValue}
-          onChange={value => setLargeTextInputValue(value)}
-        />
-        <InputRange
-          maxValue={20}
-          minValue={10}
-          value={textInputValue}
-          onChange={value => setTextInputValue(value)}
-        />
-        <button onClick={onButtonClick}>Download</button>
-      </div>
+                height: state.height ? state.height : 1080,
+                width: state.width ? state.width : 1080,
+                color: "red",
+                backgroundImage: `url(${require("../assets/test.jpg")})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat"
+              }}
+            >
+              <p
+                style={{
+                  fontSize: largeTextInputValue,
+                  position: "relative",
+
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)"
+                }}
+              >
+                {state.mainQuote}
+              </p>
+              <p
+                style={{
+                  fontSize: textInputValue,
+                  position: "relative",
+                  float: " left",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)"
+                }}
+              >
+                {state.subQuote}
+              </p>
+            </div>
+          </Col>
+          <Col>
+            <div style={{ width: "200px", marginLeft: 100 }}>
+              <InputRange
+                maxValue={50}
+                minValue={20}
+                value={largeTextInputValue}
+                onChange={value => setLargeTextInputValue(value)}
+              />
+              <InputRange
+                maxValue={20}
+                minValue={10}
+                value={textInputValue}
+                onChange={value => setTextInputValue(value)}
+              />
+              <button onClick={onButtonClick}>Download</button>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </Fragment>
   );
 };
