@@ -3,7 +3,9 @@ import html2canvas from "html2canvas";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 import axios from "axios";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { SketchPicker } from "react-color";
+
 const API_URL = "https://api.pexels.com/v1/";
 
 const Quotes = ({ location: { state = {} } }) => {
@@ -22,12 +24,18 @@ const Quotes = ({ location: { state = {} } }) => {
   //     .then(response => setApiResponse(response), setGotResponse(true))
   //     .catch(error => console.log(error, "<===="));
   // }, []);
+
   const inputEl = useRef(null);
   const [textInputValue, setTextInputValue] = useState(10);
+  const [chooseColorSmall, setChooseColorSmall] = useState(false);
+  const [chooseColorLarge, setChooseColorLarge] = useState(false);
   const [largeTextInputValue, setLargeTextInputValue] = useState(20);
+  const [largeTextInputColor, setLargeTextInputColor] = useState("red");
+  const [textInputColor, setTextInputColor] = useState("red");
+  const [fontStyle, setFontStyle] = useState("normal");
   // const [apiResponse, setApiResponse] = useState({});
   // const [gotResponse, setGotResponse] = useState(false);
-  console.log(textInputValue);
+  console.log(textInputColor, "<---response");
 
   const onButtonClick = () => {
     // `current` points to the mounted text input element
@@ -42,19 +50,32 @@ const Quotes = ({ location: { state = {} } }) => {
       );
     });
   };
+
+  const onButtonChooseColorSmallClick = () => {
+    setChooseColorSmall(!chooseColorSmall);
+    setChooseColorLarge(false);
+  };
+
+  const onButtonChooseColorLargeClick = () => {
+    setChooseColorSmall(false);
+    setChooseColorLarge(!chooseColorLarge);
+  };
+
+  const onClickFontStyle = () => {
+    setFontStyle(prevState => (prevState === "normal" ? "italic" : "normal"));
+  };
   return (
     <Fragment>
       <Container>
+        <h1>Quotesera Editor</h1>
         <Row>
-          <Col>
+          <Col lg={8}>
             <div
               ref={inputEl}
               style={{
                 textAlign: "center",
-
                 height: state.height ? state.height : 1080,
                 width: state.width ? state.width : 1080,
-                color: "red",
                 backgroundImage: `url(${require("../assets/test.jpg")})`,
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat"
@@ -63,6 +84,8 @@ const Quotes = ({ location: { state = {} } }) => {
               <p
                 style={{
                   fontSize: largeTextInputValue,
+                  color: largeTextInputColor,
+                  fontStyle,
                   position: "relative",
                   top: "50%",
                   left: "50%",
@@ -74,6 +97,8 @@ const Quotes = ({ location: { state = {} } }) => {
               <p
                 style={{
                   fontSize: textInputValue,
+                  color: textInputColor,
+                  fontStyle,
                   position: "relative",
                   float: " left",
                   top: "50%",
@@ -85,22 +110,77 @@ const Quotes = ({ location: { state = {} } }) => {
               </p>
             </div>
           </Col>
-          <Col>
-            <div style={{ width: "200px", marginLeft: 100 }}>
-              <InputRange
-                maxValue={50}
-                minValue={20}
-                value={largeTextInputValue}
-                onChange={value => setLargeTextInputValue(value)}
+
+          <Col lg={4}>
+            <Card
+              style={{
+                textAlign: "center",
+                padding: 20,
+                borderRadius: 5
+              }}
+            >
+              <img
+                className="quotesera-logo"
+                src={require("../assets/Rayana.png")}
+                alt="quotesera_logo"
               />
-              <InputRange
-                maxValue={20}
-                minValue={10}
-                value={textInputValue}
-                onChange={value => setTextInputValue(value)}
-              />
-              <button onClick={onButtonClick}>Download</button>
-            </div>
+              <div>
+                <InputRange
+                  maxValue={50}
+                  minValue={20}
+                  value={largeTextInputValue}
+                  onChange={value => setLargeTextInputValue(value)}
+                />
+                <InputRange
+                  maxValue={40}
+                  minValue={10}
+                  value={textInputValue}
+                  onChange={value => setTextInputValue(value)}
+                />
+
+                {chooseColorSmall && (
+                  <SketchPicker
+                    color={textInputColor}
+                    onChangeComplete={color => setTextInputColor(color.hex)}
+                  />
+                )}
+
+                {chooseColorLarge && (
+                  <SketchPicker
+                    color={largeTextInputColor}
+                    onChangeComplete={color =>
+                      setLargeTextInputColor(color.hex)
+                    }
+                  />
+                )}
+
+                <Button
+                  className="spacing"
+                  onClick={onButtonChooseColorSmallClick}
+                >
+                  {chooseColorSmall ? "Set Color" : "Sub Color"}
+                </Button>
+                <Button
+                  className="spacing"
+                  onClick={onButtonChooseColorLargeClick}
+                >
+                  {chooseColorLarge ? "Set Color" : "Main Color"}
+                </Button>
+
+                <div style={{ textAlign: "center" }}>
+                  <Button
+                    className="spacing"
+                    variant={fontStyle === "italic" ? "success" : "primary"}
+                    onClick={onClickFontStyle}
+                  >
+                    Italics
+                  </Button>
+                  <Button onClick={onButtonClick} className="spacing">
+                    Download
+                  </Button>
+                </div>
+              </div>
+            </Card>
           </Col>
         </Row>
       </Container>
