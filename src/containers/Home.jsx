@@ -9,13 +9,20 @@ const Home = ({ history }) => {
 
   return (
     <div>
-      <TopNav />
       <img
         className="banner-top"
-        src={require("../assets/home-banner-bg.png")}
+        src={require("../assets/home-banner-bg.jpg")}
         alt="top-banner"
       />
-      <Button onClick={navigateToDimensions}>Get Started</Button>
+      <div className="middle-align">
+        <h1 className="front-heading">Quotesera</h1>
+        <p className="front-para">
+          Make beautiful precise quotes or just copy and edit them
+        </p>
+        <div style={{ textAlign: "center" }}>
+          <Button onClick={navigateToDimensions}>Get Started</Button>
+        </div>
+      </div>
     </div>
   );
 };
