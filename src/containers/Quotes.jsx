@@ -152,7 +152,7 @@ const Quotes = ({ location: { state = {} } }) => {
                     fontStyle,
                     position: "relative",
                     float: " left",
-                    top: "43%",
+                    top: "45%",
                     fontFamily: font.value,
                     left: "50%",
                     transform: "translate(-50%, -50%)"
