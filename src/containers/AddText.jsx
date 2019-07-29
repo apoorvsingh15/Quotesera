@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Card, Container, Row } from "react-bootstrap";
+import { Form, Button, Card, Container } from "react-bootstrap";
 const AddText = ({
   history: {
     location: { state = {} },
@@ -35,7 +35,9 @@ const AddText = ({
           value={largeText}
           size="lg"
           type="text"
-          placeholder="Large text"
+          placeholder="Quote goes here"
+          as="textarea"
+          rows="3"
           maxLength={150}
           style={{ margin: 20, marginLeft: 0 }}
         />
@@ -44,8 +46,8 @@ const AddText = ({
           value={smallText}
           size="sm"
           type="text"
-          placeholder="Small text"
-          maxLength="50"
+          placeholder="Credits go here"
+          maxLength="15"
           style={{ margin: 20, marginLeft: 0 }}
         />
         <Button onClick={navigateToQuotes}>OK</Button>

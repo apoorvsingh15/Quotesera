@@ -1,5 +1,4 @@
 import React from "react";
-import TopNav from "../components/TopNav";
 import { Button } from "react-bootstrap";
 const Home = ({ history }) => {
   const navigateToDimensions = () => {

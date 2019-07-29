@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Button, Jumbotron } from "react-bootstrap";
 
 const Dimensions = props => {
-  const [dimensions, setDimensions] = useState({ width: 1080, height: 1080 });
+  const [dimensions, setDimensions] = useState({ width: 700, height: 804 });
 
   const getDimensions = platform => {
     return platform === "instagram-square"
-      ? setDimensions({ width: 940, height: 700 })
-      : setDimensions({ width: 940, height: 1334 });
+      ? setDimensions({ width: 700, height: 700 })
+      : setDimensions({ width: 750, height: 804 });
   };
 
   const navigateToAddText = () => {
